@@ -1,0 +1,18 @@
+body{
+    background-color: #FFFFFF;
+}
+#header{
+    display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    background-color: black;
+}
+#header ul {
+    display: inline-block;
+}
+#header ul li {
+    display: inline-block;
+}
+#header ul li a {
+    display: inline-block;
+}
