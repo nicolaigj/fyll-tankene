@@ -2,6 +2,12 @@ from app import db, login_manager
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
+class GroupMembership(db.Model):
+    __tablename__ = 'group_memberships'
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
+    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), primary_key=True)
+
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -9,7 +15,7 @@ class User(db.Model, UserMixin):
     surname = db.Column(db.String(64), index=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    groups = db.Relationship('GroupMembership',
+    groups = db.relationship('GroupMembership',
                                 foreign_keys=[GroupMembership.group_id],
                                 backref=db.backref('member', lazy='joined'),
                                 lazy='dynamic',
@@ -37,17 +43,11 @@ class Group(db.Model):
     __tablename__ = 'groups'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(128), unique=True)
-    members = db.Relationship('GroupMembership',
+    members = db.relationship('GroupMembership',
                                 foreign_keys=[GroupMembership.user_id],
                                 backref=db.backref('group', lazy='joined'),
                                 lazy='dynamic',
                                 cascade='all, delete-orphan')
-
-class GroupMembership(db.Model):
-    __tablename__ = 'group_memberships'
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-    group_id = db.Column(db.Integer, db.ForeignKey('groups.id'), primary_key=True)
-
 
 
 
