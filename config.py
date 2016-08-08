@@ -9,3 +9,5 @@ SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://{}:{}@localhost/fylltankene'.format(D
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
 SECRET_KEY = LOCAL_SECRET_KEY
+
+WTF_CSRF_ENABLED = True

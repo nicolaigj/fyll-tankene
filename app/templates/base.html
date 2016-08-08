@@ -11,6 +11,13 @@
                 <li><a href="/login">Logg inn</a></li>
             </ul>
         </div>
+        {% with messages = get_flashed_messages() %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endwith %}
         {% block content %}{% endblock %}
     </body>
 </html>
